@@ -9,8 +9,37 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body>
+    <header class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="index.html">
+                    <div class="logo-circle">
+                        <span>SC</span>
+                    </div>
+                    SheConnect
+                </a>
+            </div>
+            <nav class="nav-links">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="features.html">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="mentor_login.html" class="login-btn">Log In</a>
+                <a href="mentor_signup.html" class="signup-btn">Sign Up</a>
+            </div>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
     <div class="container">
-        <!-- Hero Section -->
         <section class="hero">
             <div class="hero-content" data-aos="fade-right" data-aos-duration="1000">
                 <h1 class="no-underline">Empowering Women in Tech Through Mentorship</h1>
@@ -21,12 +50,11 @@
                 </div>
             </div>
             <div class="hero-image" data-aos="fade-left" data-aos-duration="1000">
-                <img src="two-women-engage-collaborative-task-using-laptop-bright-inviting-indoor-workspace-two-women-working-laptop_538213-140946.avif" alt="Women collaborating on a laptop">
+                <img src="women.png">
             </div>
         </section>
 
-        <!-- How It Works Section -->
-        <section class="how-it-works">
+        <section class="how-it-works" id="how-it-works">
             <h2 data-aos="fade-up" data-aos-duration="800">How It Works</h2>
             <div class="steps">
                 <div class="step" data-aos="fade-up" data-aos-delay="100" data-aos-duration="800">
@@ -34,7 +62,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="12" cy="10" r="3"></circle><path d="M12 15c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg>
                     </div>
                     <h3>Create a Profile</h3>
-                    <p>Create a profile with your skills, experience, and goals</p>
+                    <p>Create a profile with your skills, experience, and goals </p>
                 </div>
                 <div class="step" data-aos="fade-up" data-aos-delay="200" data-aos-duration="800">
                     <div class="step-icon">
@@ -53,7 +81,6 @@
             </div>
         </section>
 
-        <!-- Impact Section -->
         <section class="impact">
             <h2 data-aos="fade-up" data-aos-duration="800">Our Impact</h2>
             <div class="stats">
@@ -72,12 +99,10 @@
             </div>
         </section>
 
-        <!-- Call to Action -->
-      
-<section class="cta" data-aos="fade-up" data-aos-duration="1000">
-    <h2>Ready to grow with SheConnect?</h2>
-    <a href="#" class="cta-btn cta-btn-modified">Get Started Now</a>
-</section>
+        <section class="cta" data-aos="fade-up" data-aos-duration="1000">
+            <h2>Ready to grow with SheConnect?</h2>
+            <a href="mentor_signup.html" class="cta-btn cta-btn-modified">Get Started Now</a>
+        </section>
     </div>
 
     <!-- AOS Animation Script -->

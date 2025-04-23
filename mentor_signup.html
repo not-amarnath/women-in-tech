@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Create Account</title>
+    <link rel="stylesheet" href="mentor_style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Create Your Account</h1>
+        <p class="subtitle">Join MentorMatch and transform your mentoring experience</p>
+        
+        <div class="form">
+            <div class="toggle-container">
+                <button class="toggle-btn active" id="mentor-toggle">Mentor</button>
+                <button class="toggle-btn" id="mentee-toggle">Mentee</button>
+            </div>
+            
+            <div class="form-group">
+                <label for="fullname">Full Name</label>
+                <input type="text" id="fullname" placeholder="John Doe">
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="your.email@example.com">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="••••••••">
+            </div>
+            
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" placeholder="••••••••">
+            </div>
+            
+            <button class="submit-btn">
+                Create Account
+                <span class="arrow-icon">→</span>
+            </button>
+            
+            <p class="alternative">Already have an account? <a href="index.html">Sign in</a></p>
+        </div>
+    </div>
+
+    <script src="mentor_signup.js"></script>
+</body>
+</html>
