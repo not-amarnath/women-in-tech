@@ -36,11 +36,17 @@ body {
     flex: 1;
     display: flex;
     justify-content: center;
+    overflow: hidden;
 }
 
 .hero-image img {
     max-width: 100%;
     height: auto;
+    transition: transform 0.5s ease;
+}
+
+.hero-image:hover img {
+    transform: scale(1.05);
 }
 
 h1 {
@@ -48,6 +54,31 @@ h1 {
     font-size: 3rem;
     margin-bottom: 20px;
     line-height: 1.2;
+    position: relative;
+    overflow: hidden;
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #5d54a4, transparent);
+    transform: translateX(-100%);
+    animation: slide-in 2s forwards;
+}
+
+/* Remove underline for specific heading */
+h1.no-underline::after {
+    display: none;
+}
+
+@keyframes slide-in {
+    to {
+        transform: translateX(0);
+    }
 }
 
 .subtitle {
@@ -70,6 +101,25 @@ h1 {
     transition: all 0.3s ease;
     cursor: pointer;
     font-size: 1rem;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: all 0.4s;
+    z-index: -1;
+}
+
+.btn:hover::before {
+    left: 0;
 }
 
 .btn-primary {
@@ -86,7 +136,8 @@ h1 {
 
 .btn:hover {
     opacity: 0.9;
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 /* How It Works Section */
@@ -99,6 +150,19 @@ h2 {
     font-size: 2.5rem;
     margin-bottom: 40px;
     text-align: center;
+    position: relative;
+    display: inline-block;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    width: 80px;
+    height: 4px;
+    background: #5d54a4;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .steps {
@@ -117,6 +181,12 @@ h2 {
     flex-direction: column;
     align-items: center;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.step:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
 }
 
 .step-icon {
@@ -128,6 +198,12 @@ h2 {
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.step:hover .step-icon {
+    transform: rotate(360deg);
+    transition: transform 0.5s ease;
 }
 
 .step-icon img {
@@ -157,12 +233,21 @@ h2 {
 .stat {
     flex: 1;
     padding: 20px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    background: #f8f8f8;
+}
+
+.stat:hover {
+    background: #f0f0f0;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
 }
 
 .stat-number {
     font-size: 3rem;
     font-weight: bold;
-    color: #1a1a2e;
+    color: #5d54a4;
     margin-bottom: 10px;
 }
 
@@ -174,6 +259,12 @@ h2 {
 .cta {
     padding: 60px 0;
     text-align: center;
+    background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('background-pattern.jpg');
+    background-size: cover;
+    border-radius: 10px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 .cta h2 {
@@ -190,11 +281,44 @@ h2 {
     font-weight: bold;
     font-size: 1.2rem;
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.cta-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: all 0.5s;
+    z-index: -1;
+}
+
+.cta-btn:hover::before {
+    left: 100%;
 }
 
 .cta-btn:hover {
     background-color: #4a4384;
-    transform: translateY(-3px);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+/* Modified CTA Button */
+.cta-btn-modified {
+    background-color: #5d54a4;
+    color: white;
+    box-shadow: 0 4px 8px rgba(93, 84, 164, 0.3);
+    animation: pulse 2s infinite;
+}
+
+.cta-btn-modified:hover {
+    background-color: #4a4384;
+    box-shadow: 0 6px 12px rgba(93, 84, 164, 0.5);
 }
 
 /* Responsive Design */
@@ -237,4 +361,84 @@ h2 {
     .stat-number {
         font-size: 2.5rem;
     }
+}
+
+/* Animation Keyframes */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Apply animations to elements */
+.hero-content h1, .hero-content .subtitle {
+    animation: fadeInUp 1s ease-out;
+}
+
+.hero-content .btn-container {
+    animation: fadeIn 1.5s ease-out;
+}
+
+/* In style.css - Add or modify these rules */
+.cta {
+    padding: 60px 0;
+    text-align: center;
+    background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('background-pattern.jpg');
+    background-size: cover;
+    border-radius: 10px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.cta h2 {
+    margin-bottom: 30px;
+}
+
+.cta-btn-modified {
+    display: inline-block;
+    background-color: #5d54a4;
+    color: white;
+    padding: 15px 40px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    margin-top: 10px; /* Add margin to create space under the heading */
+    box-shadow: 0 4px 8px rgba(93, 84, 164, 0.3);
+    animation: pulse 2s infinite;
 }
