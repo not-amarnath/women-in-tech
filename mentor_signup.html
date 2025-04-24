@@ -3,53 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Create Account</title>
+    <title>SheConnect - Create Account</title>
     <link rel="stylesheet" href="mentor_style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
         <div class="logo-container">
             <div class="logo">SC</div>
             <div class="logo-text">SheConnect</div>
-          </div>
+        </div>
+        
         <h1>Create Your Account</h1>
         <p class="subtitle">Join MentorMatch and transform your mentoring experience</p>
         
         <div class="form">
-            <div class="toggle-container">
-                <button class="toggle-btn active" id="mentor-toggle">Mentor</button>
-                <button class="toggle-btn" id="mentee-toggle">Mentee</button>
+            <div class="role-selection">
+                <p class="role-question">I want to join as a:</p>
+                <div class="toggle-container">
+                    <button class="toggle-btn active" id="mentor-toggle">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span>Mentor</span>
+                        <small>Share your expertise</small>
+                    </button>
+                    <button class="toggle-btn" id="mentee-toggle">
+                        <i class="fas fa-user-graduate"></i>
+                        <span>Mentee</span>
+                        <small>Find guidance</small>
+                    </button>
+                </div>
             </div>
             
             <div class="form-group">
                 <label for="fullname">Full Name</label>
-                <input type="text" id="fullname" placeholder="John Doe">
+                <div class="input-with-icon">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="fullname" placeholder="Your full name">
+                </div>
             </div>
             
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" placeholder="your.email@example.com">
+                <div class="input-with-icon">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="email" placeholder="your.email@example.com">
+                </div>
             </div>
             
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" placeholder="••••••••">
+                <div class="input-with-icon">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="••••••••">
+                    <i class="far fa-eye toggle-password"></i>
+                </div>
             </div>
             
             <div class="form-group">
                 <label for="confirm-password">Confirm Password</label>
-                <input type="password" id="confirm-password" placeholder="••••••••">
+                <div class="input-with-icon">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="confirm-password" placeholder="••••••••">
+                    <i class="far fa-eye toggle-password"></i>
+                </div>
             </div>
             
             <button class="submit-btn">
                 Create Account
-                <span class="arrow-icon">→</span>
+                <i class="fas fa-arrow-right"></i>
             </button>
             
             <p class="alternative">Already have an account? <a href="mentor_login.html">Sign in</a></p>
         </div>
     </div>
 
-    <script src="mentor_signup.js"></script>
+    <script type="module" src="mentor_signup.js"></script>
 </body>
 </html>
