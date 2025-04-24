@@ -1,90 +1,277 @@
+/* SheConnect Mentee Application Form CSS */
+:root {
+  --primary-color: #ff6bb3; /* Pink accent color from homepage */
+  --secondary-color: #121212; /* Dark background */
+  --text-color: #ffffff; /* Light text on dark background */
+  --dark-bg: #121212; /* Main dark background */
+  --card-bg: #1e1e1e; /* Slightly lighter background for cards */
+  --border-radius: 8px;
+  --box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  --transition-speed: 0.3s;
+}
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: var(--dark-bg);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Logo styling */
+.logo-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  color: white;
+  font-weight: bold;
+}
+
+.logo-text {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+}
+
+/* Form styling to match homepage */
+.apply_box {
+  max-width: 700px;
+  padding: 30px;
+  background-color: var(--card-bg);
+  margin: 0 auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border-radius);
+  transform: translateY(20px);
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  body {
-    background-color: #ccc;
-  }
-  .container {
-    max-width: 900px;
-    margin: 0 auto;
-  }
-  
+}
+
+h1 {
+  text-align: center;
+  color: white;
+  margin-bottom: 30px;
+  position: relative;
+  padding-bottom: 15px;
+  font-size: 28px;
+}
+
+h1:after {
+  content: '';
+  position: absolute;
+  width: 80px;
+  height: 3px;
+  background: var(--primary-color);
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.form_container {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.form_control {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
+}
+
+label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #e0e0e0;
+  transition: var(--transition-speed);
+}
+
+input,
+select,
+textarea {
+  padding: 12px 15px;
+  border: 1px solid #333;
+  border-radius: var(--border-radius);
+  font-size: 15px;
+  transition: all var(--transition-speed);
+  background-color: #2d2d2d;
+  color: white;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(255, 107, 179, 0.2);
+}
+
+.button_container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+button {
+  background-color: var(--primary-color);
+  border: none;
+  padding: 12px 30px;
+  color: white;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(255, 107, 179, 0.3);
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(255, 107, 179, 0.4);
+  filter: brightness(110%);
+}
+
+button:active {
+  transform: translateY(-1px);
+}
+
+.textarea_control {
+  grid-column: 1 / -1;
+}
+
+.textarea_control textarea {
+  width: 100%;
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* File upload styling */
+input[type="file"] {
+  padding: 10px;
+  background-color: #2d2d2d;
+  position: relative;
+}
+
+input[type="file"]::file-selector-button {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  margin-right: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background-color: var(--primary-color);
+}
+
+/* Form field hover animations */
+.form_control input,
+.form_control select,
+.textarea_control textarea {
+  transform: translateY(0);
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+
+.form_control input:hover,
+.form_control select:hover,
+.textarea_control textarea:hover {
+  border-color: #4d4d4d;
+}
+
+/* Navigation bar style (optional to match homepage) */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid #333;
+  margin-bottom: 30px;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: var(--primary-color);
+}
+
+/* Responsive adaptations */
+@media (max-width: 768px) {
   .apply_box {
-    max-width: 600px;
     padding: 20px;
-    background-color: white;
-    margin: 0 auto;
-    margin-top: 50px;
-    box-shadow: 4px 3px 5px rgba(1, 1, 1, 0.1);
-    border-radius: 10px;
-  }
-  
-  .title_small {
-    font-size: 20px;
+    margin-top: 30px;
   }
   
   .form_container {
-    margin-top: 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-  }
-  .form_control {
-    display: flex;
-    flex-direction: column;
+    grid-template-columns: 1fr;
   }
   
-  label {
-    font-size: 15px;
-    margin-bottom: 5px;
-  }
-  
-  input,
-  select,
-  textarea {
-    padding: 6px 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 15px;
-  }
-  
-  input:focus {
-    outline-color: red;
-  }
-  
-  .button_container {
-    display: flex;
-  
-    justify-content: flex-end;
-    margin-top: 20px;
-  }
   button {
-    background-color: red;
-    border: transparent solid 2px;
-    padding: 5px 10px;
-    color: white;
-    border-radius: 8px;
-    transition: 0.3s ease-in;
-  }
-  button:hover {
-    background-color: #ccc;
-    border: 2px solid red;
-    color: black;
-    transition: 0.3s ease-out;
-    cursor: pointer;
-  }
-  .textarea_control {
-    grid-column: 1 / span 2;
-  }
-  .textarea_control textarea {
     width: 100%;
   }
+
+  .nav {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+@media (max-width: 460px) {
+  h1 {
+    font-size: 24px;
+  }
   
-  @media (max-width: 460px) {
-    .textarea_control {
-      grid-column: 1 / span 1;
-    }
-  } ;
+  input, select, textarea {
+    padding: 10px;
+  }
+}
