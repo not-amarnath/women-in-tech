@@ -95,7 +95,7 @@ submitBtn.addEventListener('click', async (e) => {
     
     // Redirect based on user role
     setTimeout(() => {
-      window.location.href = userRole === 'mentor' ? 'mentor_dashboard.html' : 'mentee_dashboard.html';
+      window.location.href = userRole === 'mentor' ? 'dashboard.html' : 'mentee_dashboard.html';
     }, 1500);
     
   } catch (error) {

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SheConnect - User Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-container">
+                <div class="logo">SC</div>
+                <div class="logo-text">SheConnect</div>
+            </div>
+            
+            <div class="user-info">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h3 id="sidebar-user-name">Loading...</h3>
+                <p id="sidebar-user-role">Loading...</p>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active">
+                        <a href="#overview">
+                            <i class="fas fa-home"></i>
+                            <span>Overview</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#profile">
+                            <i class="fas fa-user-circle"></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#connections">
+                            <i class="fas fa-users"></i>
+                            <span>Connections</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#messages">
+                            <i class="fas fa-comments"></i>
+                            <span>Messages</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#events">
+                            <i class="fas fa-calendar"></i>
+                            <span>Events</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#resources">
+                            <i class="fas fa-book"></i>
+                            <span>Resources</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#settings">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button id="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="dashboard-header">
+                <div class="header-left">
+                    <button id="sidebar-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h2>Dashboard</h2>
+                </div>
+                <div class="header-right">
+                    <div class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search...">
+                    </div>
+                    <div class="notification">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+                    <div class="user-dropdown">
+                        <div class="user-avatar header-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            <a href="#profile"><i class="fas fa-user-circle"></i> Profile</a>
+                            <a href="#settings"><i class="fas fa-cog"></i> Settings</a>
+                            <a href="#" id="header-logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <!-- Overview Section -->
+                <section id="overview" class="dashboard-section active">
+                    <div class="welcome-card">
+                        <div class="welcome-text">
+                            <h2>Welcome back, <span id="user-name">User</span>!</h2>
+                            <p>Here's what's happening with your mentoring activities.</p>
+                        </div>
+                        <div class="welcome-image">
+                            <img src="women.png" alt="Welcome">
+                        </div>
+                    </div>
+
+                    <div class="stats-row">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>5</h3>
+                                <p>Upcoming Sessions</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>12</h3>
+                                <p>Active Connections</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>8</h3>
+                                <p>New Messages</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>85%</h3>
+                                <p>Profile Completion</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cards-row">
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3>Upcoming Sessions</h3>
+                                <a href="#sessions" class="view-all">View All</a>
+                            </div>
+                            <div class="session-list">
+                                <div class="session-item">
+                                    <div class="session-date">
+                                        <span class="day">25</span>
+                                        <span class="month">Apr</span>
+                                    </div>
+                                    <div class="session-info">
+                                        <h4>Career Strategy Discussion</h4>
+                                        <p><i class="fas fa-clock"></i> 10:30 AM - 11:30 AM</p>
+                                        <p><i class="fas fa-user"></i> Sarah Johnson</p>
+                                    </div>
+                                    <div class="session-actions">
+                                        <button class="btn-session">Join</button>
+                                    </div>
+                                </div>
+                                <div class="session-item">
+                                    <div class="session-date">
+                                        <span class="day">27</span>
+                                        <span class="month">Apr</span>
+                                    </div>
+                                    <div class="session-info">
+                                        <h4>Technical Skills Review</h4>
+                                        <p><i class="fas fa-clock"></i> 2:00 PM - 3:00 PM</p>
+                                        <p><i class="fas fa-user"></i> Michelle Wang</p>
+                                    </div>
+                                    <div class="session-actions">
+                                        <button class="btn-session">Join</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3>Recent Messages</h3>
+                                <a href="#messages" class="view-all">View All</a>
+                            </div>
+                            <div class="message-list">
+                                <div class="message-item">
+                                    <div class="message-avatar">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="message-info">
+                                        <h4>Sarah Johnson</h4>
+                                        <p>Looking forward to our session this week!</p>
+                                        <span class="message-time">2 hours ago</span>
+                                    </div>
+                                </div>
+                                <div class="message-item">
+                                    <div class="message-avatar">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="message-info">
+                                        <h4>Michelle Wang</h4>
+                                        <p>I have some resources to share with you about frontend development.</p>
+                                        <span class="message-time">5 hours ago</span>
+                                    </div>
+                                </div>
+                                <div class="message-item">
+                                    <div class="message-avatar">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="message-info">
+                                        <h4>Laura Chen</h4>
+                                        <p>Thank you for the advice during our last meeting!</p>
+                                        <span class="message-time">Yesterday</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="user-details-card">
+                        <div class="card-header">
+                            <h3>Your Profile Details</h3>
+                            <a href="#profile" class="view-all">Edit Profile</a>
+                        </div>
+                        <div class="profile-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Full Name:</span>
+                                <span id="profile-name" class="detail-value">Loading...</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Email:</span>
+                                <span id="profile-email" class="detail-value">Loading...</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Role:</span>
+                                <span id="profile-role" class="detail-value">Loading...</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Member Since:</span>
+                                <span id="profile-date" class="detail-value">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Other sections can be added here, but keeping it minimal -->
+                <section id="profile" class="dashboard-section">
+                    <h2>Profile</h2>
+                    <p>Your profile content will appear here.</p>
+                </section>
+                
+                <section id="connections" class="dashboard-section">
+                    <h2>Connections</h2>
+                    <p>Your connections will appear here.</p>
+                </section>
+                
+                <!-- More sections as needed -->
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="dashboard.js"></script>
+</body>
+</html>

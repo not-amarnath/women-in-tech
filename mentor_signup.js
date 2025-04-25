@@ -139,7 +139,7 @@ submitBtn.addEventListener('click', async (e) => {
     
     // Redirect to onboarding page after delay
     setTimeout(() => {
-      window.location.href = userRole === 'mentor' ? 'mentor_onboarding.html' : 'mentee_onboarding.html';
+      window.location.href = userRole === 'mentor' ? 'dashboard.html' : 'mentor_onboarding.html';
     }, 1500);
     
   } catch (error) {
