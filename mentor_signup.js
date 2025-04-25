@@ -42,7 +42,7 @@ menteeToggle.addEventListener('click', () => {
 
 function setActiveRole(role) {
   userRole = role;
-  
+
   if (role === 'mentor') {
     mentorToggle.classList.add('active');
     menteeToggle.classList.remove('active');
@@ -54,9 +54,9 @@ function setActiveRole(role) {
 
 // Toggle password visibility
 togglePasswordBtns.forEach(btn => {
-  btn.addEventListener('click', function() {
+  btn.addEventListener('click', function () {
     const input = this.previousElementSibling;
-    
+
     if (input.type === 'password') {
       input.type = 'text';
       this.classList.remove('fa-eye');
@@ -82,46 +82,46 @@ function validatePassword(password) {
 // Form submission
 submitBtn.addEventListener('click', async (e) => {
   e.preventDefault();
-  
+
   // Add loading animation
   submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
   submitBtn.disabled = true;
-  
+
   const fullname = fullnameInput.value.trim();
   const email = emailInput.value.trim();
   const password = passwordInput.value;
   const confirmPassword = confirmPasswordInput.value;
-  
+
   // Validate form
   if (!fullname || !email || !password || !confirmPassword) {
     showNotification('Please fill in all fields', 'error');
     resetButton();
     return;
   }
-  
+
   if (!validateEmail(email)) {
     showNotification('Please enter a valid email address', 'error');
     resetButton();
     return;
   }
-  
+
   if (!validatePassword(password)) {
     showNotification('Password must be at least 6 characters long', 'error');
     resetButton();
     return;
   }
-  
+
   if (password !== confirmPassword) {
     showNotification('Passwords do not match', 'error');
     resetButton();
     return;
   }
-  
+
   try {
     // Create user account with Firebase
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
-    
+
     // Store additional user data in Firestore
     await setDoc(doc(db, "users", user.uid), {
       fullName: fullname,
@@ -130,27 +130,26 @@ submitBtn.addEventListener('click', async (e) => {
       createdAt: new Date().toISOString(),
       profileComplete: false
     });
-    
+
     // Store user role in localStorage
     localStorage.setItem('userRole', userRole);
-    
+
     // Show success message
     showNotification('Account created successfully!', 'success');
-    
+
     // Redirect to onboarding page after delay
     setTimeout(() => {
       window.location.href = userRole === 'mentor' ? 'dashboard.html' : 'mentor_onboarding.html';
     }, 1500);
-    
+
   } catch (error) {
-    // Handle signup errors
     console.error(error);
     let errorMessage = 'Account creation failed. Please try again.';
-    
+
     if (error.code === 'auth/email-already-in-use') {
       errorMessage = 'This email is already registered. Please sign in instead.';
     }
-    
+
     showNotification(errorMessage, 'error');
     resetButton();
   }
@@ -164,16 +163,13 @@ function resetButton() {
 
 // Show notification message
 function showNotification(message, type) {
-  // Check if notification element exists
   let notification = document.querySelector('.notification');
-  
-  // If not, create a new one
+
   if (!notification) {
     notification = document.createElement('div');
     notification.className = 'notification';
     document.body.appendChild(notification);
-    
-    // Add styles
+
     notification.style.position = 'fixed';
     notification.style.bottom = '20px';
     notification.style.right = '20px';
@@ -186,8 +182,7 @@ function showNotification(message, type) {
     notification.style.opacity = '0';
     notification.style.transform = 'translateY(20px)';
   }
-  
-  // Set type-specific styles
+
   if (type === 'error') {
     notification.style.backgroundColor = '#f44336';
     notification.style.color = 'white';
@@ -195,22 +190,17 @@ function showNotification(message, type) {
     notification.style.backgroundColor = '#4CAF50';
     notification.style.color = 'white';
   }
-  
-  // Set message
+
   notification.textContent = message;
-  
-  // Show notification
+
   setTimeout(() => {
     notification.style.opacity = '1';
     notification.style.transform = 'translateY(0)';
   }, 10);
-  
-  // Hide after 3 seconds
+
   setTimeout(() => {
     notification.style.opacity = '0';
     notification.style.transform = 'translateY(20px)';
-    
-    // Remove from DOM after fade out
     setTimeout(() => {
       if (notification.parentNode) {
         notification.parentNode.removeChild(notification);

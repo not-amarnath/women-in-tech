@@ -1,6 +1,7 @@
 // Import Firebase modules
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -16,12 +17,15 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 // DOM elements
 const mentorToggle = document.getElementById('mentor-toggle');
 const menteeToggle = document.getElementById('mentee-toggle');
+const fullnameInput = document.getElementById('fullname');
 const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
+const confirmPasswordInput = document.getElementById('confirm-password');
 const submitBtn = document.querySelector('.submit-btn');
 const togglePasswordBtns = document.querySelectorAll('.toggle-password');
 
@@ -38,7 +42,7 @@ menteeToggle.addEventListener('click', () => {
 
 function setActiveRole(role) {
   userRole = role;
-  
+
   if (role === 'mentor') {
     mentorToggle.classList.add('active');
     menteeToggle.classList.remove('active');
@@ -50,9 +54,9 @@ function setActiveRole(role) {
 
 // Toggle password visibility
 togglePasswordBtns.forEach(btn => {
-  btn.addEventListener('click', function() {
+  btn.addEventListener('click', function () {
     const input = this.previousElementSibling;
-    
+
     if (input.type === 'password') {
       input.type = 'text';
       this.classList.remove('fa-eye');
@@ -65,50 +69,87 @@ togglePasswordBtns.forEach(btn => {
   });
 });
 
+// Form validation functions
+function validateEmail(email) {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
+}
+
+function validatePassword(password) {
+  return password.length >= 6;
+}
+
 // Form submission
 submitBtn.addEventListener('click', async (e) => {
   e.preventDefault();
-  
+
   // Add loading animation
-  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing In...';
+  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
   submitBtn.disabled = true;
-  
+
+  const fullname = fullnameInput.value.trim();
   const email = emailInput.value.trim();
   const password = passwordInput.value;
-  
+  const confirmPassword = confirmPasswordInput.value;
+
   // Validate form
-  if (!email || !password) {
+  if (!fullname || !email || !password || !confirmPassword) {
     showNotification('Please fill in all fields', 'error');
     resetButton();
     return;
   }
-  
+
+  if (!validateEmail(email)) {
+    showNotification('Please enter a valid email address', 'error');
+    resetButton();
+    return;
+  }
+
+  if (!validatePassword(password)) {
+    showNotification('Password must be at least 6 characters long', 'error');
+    resetButton();
+    return;
+  }
+
+  if (password !== confirmPassword) {
+    showNotification('Passwords do not match', 'error');
+    resetButton();
+    return;
+  }
+
   try {
-    // Sign in with Firebase
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    
+    // Create user account with Firebase
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    // Store additional user data in Firestore
+    await setDoc(doc(db, "users", user.uid), {
+      fullName: fullname,
+      email: email,
+      role: userRole,
+      createdAt: new Date().toISOString(),
+      profileComplete: false
+    });
+
     // Store user role in localStorage
     localStorage.setItem('userRole', userRole);
-    
+
     // Show success message
-    showNotification('Login successful!', 'success');
-    
-    // Redirect based on user role
+    showNotification('Account created successfully!', 'success');
+
+    // Redirect to onboarding page after delay
     setTimeout(() => {
-      window.location.href = userRole === 'mentor' ? 'dashboard.html' : 'mentee_dashboard.html';
+      window.location.href = userRole === 'mentor' ? 'dashboard.html' : 'mentor_onboarding.html';
     }, 1500);
-    
+
   } catch (error) {
-    // Handle login errors
     console.error(error);
-    let errorMessage = 'Login failed. Please check your credentials.';
-    
-    if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-      errorMessage = 'Invalid email or password. Please try again.';
-    } else if (error.code === 'auth/too-many-requests') {
-      errorMessage = 'Too many failed login attempts. Please try again later.';
+    let errorMessage = 'Account creation failed. Please try again.';
+
+    if (error.code === 'auth/email-already-in-use') {
+      errorMessage = 'This email is already registered. Please sign in instead.';
     }
-    
+
     showNotification(errorMessage, 'error');
     resetButton();
   }
@@ -116,22 +157,19 @@ submitBtn.addEventListener('click', async (e) => {
 
 // Reset button state
 function resetButton() {
-  submitBtn.innerHTML = 'Sign In <i class="fas fa-arrow-right"></i>';
+  submitBtn.innerHTML = 'Create Account <i class="fas fa-arrow-right"></i>';
   submitBtn.disabled = false;
 }
 
 // Show notification message
 function showNotification(message, type) {
-  // Check if notification element exists
   let notification = document.querySelector('.notification');
-  
-  // If not, create a new one
+
   if (!notification) {
     notification = document.createElement('div');
     notification.className = 'notification';
     document.body.appendChild(notification);
-    
-    // Add styles
+
     notification.style.position = 'fixed';
     notification.style.bottom = '20px';
     notification.style.right = '20px';
@@ -144,8 +182,7 @@ function showNotification(message, type) {
     notification.style.opacity = '0';
     notification.style.transform = 'translateY(20px)';
   }
-  
-  // Set type-specific styles
+
   if (type === 'error') {
     notification.style.backgroundColor = '#f44336';
     notification.style.color = 'white';
@@ -153,22 +190,17 @@ function showNotification(message, type) {
     notification.style.backgroundColor = '#4CAF50';
     notification.style.color = 'white';
   }
-  
-  // Set message
+
   notification.textContent = message;
-  
-  // Show notification
+
   setTimeout(() => {
     notification.style.opacity = '1';
     notification.style.transform = 'translateY(0)';
   }, 10);
-  
-  // Hide after 3 seconds
+
   setTimeout(() => {
     notification.style.opacity = '0';
     notification.style.transform = 'translateY(20px)';
-    
-    // Remove from DOM after fade out
     setTimeout(() => {
       if (notification.parentNode) {
         notification.parentNode.removeChild(notification);
@@ -176,3 +208,49 @@ function showNotification(message, type) {
     }, 300);
   }, 3000);
 }
+
+// Form submission for sign in
+submitBtn.addEventListener('click', async (e) => {
+  e.preventDefault();
+
+  // Add loading animation
+  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing In...';
+  submitBtn.disabled = true;
+
+  const email = emailInput.value.trim();
+  const password = passwordInput.value;
+
+  // Validate form
+  if (!email || !password) {
+    showNotification('Please fill in all fields', 'error');
+    resetButton();
+    return;
+  }
+
+  try {
+    // Sign in user with Firebase
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    // Show success message
+    showNotification('Login successful!', 'success');
+
+    // Redirect to dashboard after delay
+    setTimeout(() => {
+      window.location.href = 'dashboard.html';
+    }, 1500);
+
+  } catch (error) {
+    console.error(error);
+    let errorMessage = 'Login failed. Please try again.';
+
+    if (error.code === 'auth/user-not-found') {
+      errorMessage = 'No account found with this email.';
+    } else if (error.code === 'auth/wrong-password') {
+      errorMessage = 'Incorrect password. Please try again.';
+    }
+
+    showNotification(errorMessage, 'error');
+    resetButton();
+  }
+});
