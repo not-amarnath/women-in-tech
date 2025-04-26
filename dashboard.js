@@ -28,7 +28,7 @@ const updateUserInfo = async (user) => {
         if (userSnap.exists()) {
             const userData = userSnap.data();
             const name = userData.fullName || "User"; // Fetch fullName from Firestore
-            const role = userData.role || "User";
+            const role = (userData.role || "User").charAt(0).toUpperCase() + (userData.role || "User").slice(1);
 
             // Update name and role in UI
             document.getElementById("sidebar-user-name").textContent = name;
@@ -55,11 +55,23 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
-// Logout buttons
+// Logout buttons with confirmation
 document.getElementById("logout-btn").addEventListener("click", () => {
-    signOut(auth);
+    if (confirm("Are you sure you want to logout?")) {
+        animateLogout();
+        setTimeout(() => signOut(auth), 1000); // Delay logout for animation
+    }
 });
 
 document.getElementById("header-logout-btn").addEventListener("click", () => {
-    signOut(auth);
+    if (confirm("Are you sure you want to logout?")) {
+        animateLogout();
+        setTimeout(() => signOut(auth), 1000); // Delay logout for animation
+    }
 });
+
+// Logout animation
+const animateLogout = () => {
+    document.body.style.transition = "opacity 1s ease";
+    document.body.style.opacity = "0";
+};

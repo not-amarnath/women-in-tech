@@ -1,5 +1,5 @@
 // Import Firebase modules
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
 import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
@@ -28,6 +28,7 @@ const passwordInput = document.getElementById('password');
 const confirmPasswordInput = document.getElementById('confirm-password');
 const submitBtn = document.querySelector('.submit-btn');
 const togglePasswordBtns = document.querySelectorAll('.toggle-password');
+const forgotPasswordLink = document.querySelector('.forgot-password');
 
 // User role selection (mentor or mentee)
 let userRole = 'mentor'; // Default role
@@ -252,5 +253,31 @@ submitBtn.addEventListener('click', async (e) => {
 
     showNotification(errorMessage, 'error');
     resetButton();
+  }
+});
+
+// Handle "Forgot password?" functionality
+forgotPasswordLink.addEventListener('click', async (e) => {
+  e.preventDefault();
+
+  const email = emailInput.value.trim();
+
+  if (!email) {
+    showNotification('Please enter your email address to reset your password.', 'error');
+    return;
+  }
+
+  try {
+    await sendPasswordResetEmail(auth, email);
+    showNotification('Password reset email sent! Check your inbox.', 'success');
+  } catch (error) {
+    console.error(error);
+    let errorMessage = 'Failed to send password reset email. Please try again.';
+
+    if (error.code === 'auth/user-not-found') {
+      errorMessage = 'No account found with this email.';
+    }
+
+    showNotification(errorMessage, 'error');
   }
 });
