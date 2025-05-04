@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Disable AOS on mobile for better performance
+       
         if (typeof AOS !== 'undefined') {
             AOS.refresh();
         }
