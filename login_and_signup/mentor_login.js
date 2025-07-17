@@ -140,7 +140,7 @@ submitBtn.addEventListener('click', async (e) => {
 
     // Redirect to onboarding page after delay
     setTimeout(() => {
-      window.location.href = userRole === 'mentor' ? 'dashboard.html' : 'mentor_onboarding.html';
+      window.location.href = userRole === 'mentor' ? '../dashboard/dashboard.html' : 'mentor_onboarding.html';
     }, 1500);
 
   } catch (error) {
@@ -238,7 +238,7 @@ submitBtn.addEventListener('click', async (e) => {
 
     // Redirect to dashboard after delay
     setTimeout(() => {
-      window.location.href = 'dashboard.html';
+      window.location.href = '../dashboard/dashboard.html';
     }, 1500);
 
   } catch (error) {
